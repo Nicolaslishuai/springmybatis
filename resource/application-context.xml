@@ -86,6 +86,10 @@
         <property name="basePackage" value="lishuai.base.dao" /> 
     </bean> 
     <!-- 扫描service层 -->  
-    <context:component-scan base-package="lishuai.service" /> 
+    <context:component-scan base-package="lishuai.service" />
+    
+    
+    
+    <import resource="spring/security.xml"/> 
 
 </beans>

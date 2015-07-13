@@ -49,7 +49,7 @@ public class ServiceTest {
 	 }
 	@Test
 	public void selectById() {
-		 UserEntity u=userservice.findby("122");
+		 UserEntity u=userservice.findby("01");
          System.out.println(u.toString());
 	 }
 	@Test

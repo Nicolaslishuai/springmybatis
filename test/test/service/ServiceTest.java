@@ -2,7 +2,9 @@ package test.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import lishuai.base.dao.RuleDao;
 import lishuai.base.entity.UserEntity;
 import lishuai.service.Userservice;
 
@@ -22,6 +24,9 @@ public class ServiceTest {
 	
 	 @Autowired
 	 private Userservice userservice;
+	 
+	 @Autowired
+	 private RuleDao ruledao;
 	
 	 @Before //在每个测试用例方法之前都会执行    
 	 public void init(){
@@ -68,6 +73,11 @@ public class ServiceTest {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
+	}
+	@Test
+	public void select(){
+		List<Map<String, String>>list=ruledao.findUrlRole();
+		System.out.println(list.toArray().toString());
 	}
 
 }

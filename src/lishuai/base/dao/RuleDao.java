@@ -1,11 +1,12 @@
 package lishuai.base.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import lishuai.base.entity.Rule;
 
 public interface RuleDao {
 	
-	public List<Rule> findByUsername(String username);
+	public List<Map<String,String>> findUrlRole();
 
 }

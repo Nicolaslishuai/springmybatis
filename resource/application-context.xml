@@ -87,9 +87,11 @@
     </bean> 
     <!-- 扫描service层 -->  
     <context:component-scan base-package="lishuai.service" />
+    <context:component-scan base-package="lishuai.security" />
     
     
+    <!-- <import resource="spring/security.xml"/>  -->
     
-    <import resource="spring/security.xml"/> 
+    <import resource="spring/example1_security.xml"/>
 
 </beans>

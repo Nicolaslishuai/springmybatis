@@ -7,5 +7,7 @@ import lishuai.base.entity.Role;
 public interface RoleDao {
 	
 	public List<Role> getUserRole(String username);
+	
+	public List<Role> getALLRole();
 
 }

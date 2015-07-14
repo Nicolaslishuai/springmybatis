@@ -20,16 +20,15 @@ public class SysUsersImpl {
 	@Autowired
 	private UserDao userdao;
 	
-	@Autowired
-	private RuleDao ruledao;
-	
-	@Autowired RoleDao roledao;
+	@Autowired 
+	private RoleDao roledao;
 	
 	public SysUser findUserBy(String username){
 		UserEntity user=userdao.findByName(username);
 		if(user!=null){
 			SysUser sysuser=new SysUser();
 			sysuser.setUsername(username);
+			sysuser.setPassword(user.getPassword());
 			return sysuser;
 		}
 		return null;

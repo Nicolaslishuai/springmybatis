@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<!--这块等于dao接口的实现  namespace必须和接口的类路径一样-->  
+<mapper namespace="lishuai.base.dao.RuleDao">
+    <sql id="selectpart">select * from rule </sql>
+     <select id="findUrlRole" resultType="HashMap">
+        SELECT ru.url, GROUP_CONCAT(ro.rolename) AS rolelist 
+         FROM rolerule re 
+         INNER JOIN role ro ON re.roleid=ro.roleid 
+         INNER JOIN rule ru ON re.ruleid=ru.ruleid 
+         GROUP BY ru.url
+     </select>
+</mapper> 

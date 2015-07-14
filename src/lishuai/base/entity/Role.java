@@ -1,5 +1,7 @@
 package lishuai.base.entity;
 
+import org.apache.ibatis.type.Alias;
+@Alias("role")
 public class Role {
 	
 	private String roleid;
@@ -7,6 +9,8 @@ public class Role {
 	private String rolename;
 	
 	private String roleno;
+	
+	private String remark;
 
 	public String getRoleid() {
 		return roleid;
@@ -30,6 +34,14 @@ public class Role {
 
 	public void setRoleno(String roleno) {
 		this.roleno = roleno;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 	

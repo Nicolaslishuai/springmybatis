@@ -33,27 +33,53 @@
 		<sec:http pattern="/**/*.css" security="none" /> 
 	    
 	    <sec:http pattern="/index.jsp" security="none" />
-	    <sec:http pattern="login.jsp" security="none" />
+	    <sec:http pattern="/login.jsp" security="none" />
+	    <sec:http pattern="/403.jsp" security="none" />
 
-		<sec:http  access-denied-page="/403.jsp"  use-expressions="true">
+		<sec:http auto-config="true" access-denied-page="/jsp/common/403.jsp"  use-expressions="true" >
+		
+		<sec:intercept-url pattern="/jsp/user/*.*" access="hasRole('ROLE_USER')"/>
+		
+		<sec:intercept-url pattern="/jsp/admin/*.*" access="hasRole('ROLE_SYSADMIN')"/>
+		
+	    <sec:intercept-url pattern="/**" access="hasRole('ROLE_LOGIN')"/>
+	    
 	              
 	    <sec:form-login login-page="/login.jsp" 
 	                           authentication-failure-url="/login.jsp" 
 	                           default-target-url="/index.jsp" 
 	                           login-processing-url="/spring_login"
 	                           password-parameter="password"
-	                           username-parameter="username"
+	                           username-parameter="username"	                        
 	                            />
-	          <sec:session-management invalid-session-url="/sessionTimeOut.jsp"></sec:session-management>    
+	      <sec:logout logout-url="/spring_logout"  logout-success-url="/index.jsp" />                      
+	     <sec:session-management invalid-session-url="/sessionTimeOut.jsp"></sec:session-management>    
       </sec:http>
       
-      <sec:authentication-manager alias="authenticationManager">
-         <sec:authentication-provider user-service-ref="userDetailsManager">
+<!--       <sec:authentication-manager>
+         <sec:authentication-provider ref="authenticationProvider" user-service-ref="userDetailsManager">
            <sec:password-encoder ref="passwordEncoder">
               <sec:salt-source user-property="username" />
            </sec:password-encoder>
          </sec:authentication-provider>
+      </sec:authentication-manager> -->
+      
+      <sec:authentication-manager>
+       <sec:authentication-provider ref="authenticationProvider" />
       </sec:authentication-manager>
+      
+      <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+       <property name="hideUserNotFoundExceptions" value="false"></property>
+       <property name="passwordEncoder" ref="passwordEncoder"></property>
+       <property name="saltSource" ref="saltSource"></property>
+       <property name="userDetailsService" ref="userDetailsManager"></property>
+       <property name="messageSource" ref="messageSource"></property>
+       <property name="userCache" ref="userCache"></property>
+      </bean>
+      
+      
+      
+      
       
       <!-- 定义上下文返回的消息的国际化。 -->
       <bean id="messageSource"
@@ -68,6 +94,10 @@
       <!-- 用户的密码加密或解密 -->
      <bean id="passwordEncoder"
         class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+        
+     <bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource" >
+       <property name="userPropertyToUse" value="username"></property>
+     </bean>   
         
      <!-- 用户详细信息管理 : 数据源、用户缓存、启用用户组功能。  -->
      <bean id="userDetailsManager"

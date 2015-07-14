@@ -24,6 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      <br>
      <button>SUBMIT</button>
     </form>
+    <hr>
+    <a href="jsp/login/login.jsp">LOGIN</a>
+    <a href="jsp/admin/index.jsp">ADMIN</a>
+    <a href="jsp/user/index.jsp">USER</a>
+    <a href="spring_logout">注销</a>
   </body>
   <script type="text/javascript">
    $(function(){

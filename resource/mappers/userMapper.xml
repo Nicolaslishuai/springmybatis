@@ -10,6 +10,9 @@
     <select id="findById" parameterType="HashMap" resultType="User">  
         <include refid="selectpart"></include> where id=#{id}  
     </select>
+    <select id="findByName" parameterType="HashMap" resultType="User">
+        <include refid="selectpart"></include> where username=#{name}
+    </select>
     <select id="selectByPage" resultType="User" >
        <include refid="selectpart"></include> 
        <where>

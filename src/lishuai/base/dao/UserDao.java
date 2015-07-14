@@ -8,6 +8,8 @@ import lishuai.base.entity.UserEntity;
 public interface UserDao {
 	
 	public UserEntity findById(String Id);
+	
+	public UserEntity findByName(String name);
 	/**
 	 * 1.自定义分页查询
 	 * 2.传多个参数

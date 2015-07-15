@@ -37,13 +37,7 @@
 	    <sec:http pattern="/403.jsp" security="none" />
 
 		<sec:http auto-config="true" access-denied-page="/jsp/common/403.jsp"  use-expressions="true" >
-		
-		<sec:intercept-url pattern="/jsp/user/*.*" access="hasRole('user')"/>
-		
-		<sec:intercept-url pattern="/jsp/admin/*.*" access="hasRole('admin')"/>
-		
-	    <sec:intercept-url pattern="/**" access="hasRole('login')"/>
-		    	              
+			    	              
 	    <sec:form-login login-page="/login.jsp" 
 	                           authentication-failure-url="/login.jsp" 
 	                           default-target-url="/index.jsp" 
@@ -52,13 +46,13 @@
 	                           username-parameter="username"	                        
 	                            />
 	      <sec:logout logout-url="/spring_logout"  logout-success-url="/index.jsp" />                      
-	     <sec:session-management invalid-session-url="/sessionTimeOut.jsp"></sec:session-management> 
+	      <sec:session-management invalid-session-url="/sessionTimeOut.jsp"></sec:session-management> 
 	     
 	     <sec:custom-filter ref="resourceAccessFilter" before="FILTER_SECURITY_INTERCEPTOR"/>  
       </sec:http>
        
       <sec:authentication-manager alias="authenticationManager">
-       <sec:authentication-provider user-service-ref="userDetailsservice"/>
+       <sec:authentication-provider ref="authenticationProvider"/>
       </sec:authentication-manager>
       
       <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">

@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -78,6 +79,11 @@ public class ServiceTest {
 	public void select(){
 		List<Map<String, String>>list=ruledao.findUrlRole();
 		System.out.println(list.toArray().toString());
+	}
+	@Test
+	public void md5(){
+		Md5PasswordEncoder e=new Md5PasswordEncoder();
+		System.out.println(e.encodePassword("123", "ะกร๗"));
 	}
 
 }

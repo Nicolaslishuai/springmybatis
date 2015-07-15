@@ -24,7 +24,7 @@ public class DefaultAccessDecisionManager extends AbstractAccessDecisionManager 
 		if(authentication==null){//没有任何权限
 			throw new AccessDeniedException("没有任何权限！");
 		}
-		 Iterator voters = getDecisionVoters().iterator();
+		 Iterator<?> voters = getDecisionVoters().iterator();
 		 do{
 			 if(voters.hasNext()){
 				AccessDecisionVoter voter=(AccessDecisionVoter)voters.next();
@@ -32,7 +32,7 @@ public class DefaultAccessDecisionManager extends AbstractAccessDecisionManager 
 		         switch(result){
 		          case 1:return;
 		          case -1:throw new AccessDeniedException("没有访问该资源的权限！");
-		          default:throw new AccessDeniedException("没有访问该资源的权限！");
+		          default:
 		         }   
 			 }
 		 }while(true);

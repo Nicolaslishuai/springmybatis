@@ -4,8 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import lishuai.base.dao.RuleDao;
 import lishuai.base.entity.UserEntity;
+import lishuai.common.util.StoreService;
+import lishuai.message.AbstractMessage;
+import lishuai.message.MessageFactory;
+import lishuai.message.AbstractMessage.Event;
+import lishuai.message.entity.UpdateMessage;
 import lishuai.service.Userservice;
 
 import org.junit.After;
@@ -28,6 +35,9 @@ public class ServiceTest {
 	 
 	 @Autowired
 	 private RuleDao ruledao;
+	 
+     @Resource(name = "StoreService")
+     private StoreService storeService;
 	
 	 @Before //在每个测试用例方法之前都会执行    
 	 public void init(){
@@ -84,6 +94,17 @@ public class ServiceTest {
 	public void md5(){
 		Md5PasswordEncoder e=new Md5PasswordEncoder();
 		System.out.println(e.encodePassword("123", "小明"));
+	}
+	@Test
+	public void testCache(){
+		storeService.setStoreCode("a", "1000");
+		System.out.println(storeService.getOrStoreCode("a", null));
+	}
+	@Test
+	public void testMessage(){
+		AbstractMessage message=MessageFactory.createDefaultMessage();
+		message.setData("Hello world");
+		System.out.println(message.toString()); 
 	}
 
 }

@@ -13,6 +13,8 @@
         <action name="user_*"  class="lishuai.action.UserAction" method="{1}"> 
            <interceptor-ref name="interceplist"></interceptor-ref>
 		</action> 
+		<action name="message_*"  class="lishuai.action.MessageAction" method="{1}"> 
+		</action>
   </package>
 
 </struts>

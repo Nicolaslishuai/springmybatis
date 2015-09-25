@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lishuai.message.entity.DefaultMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +42,7 @@ public class MessageServlet extends HttpServlet {
 			return;
 		}
 		if(PublishServiceManager.isHaveService(ID)){
-			/*PublishServiceManager.getPublishService(ID).complete();*/
+			PublishServiceManager.getPublishService(ID).complete();
 		}
 		AsyncContext asyncContext = request.startAsync();
 		asyncContext.setTimeout(TIMEOUT);
@@ -62,44 +64,31 @@ public class MessageServlet extends HttpServlet {
 	   
 		@Override
 		public void onComplete(AsyncEvent event) throws IOException {
-			log.info("complete:"+event.toString());
-			PublishServiceManager.removeService(ID);
+			PublishServiceManager.removeService(ID,event.getAsyncContext());
 		}
 
 		@Override
 		public void onError(AsyncEvent event) throws IOException {
-			log.info("error:"+event.toString());
-			PublishServiceManager.removeService(ID);
+			PublishServiceManager.removeService(ID,event.getAsyncContext());
 		}
 
 		@Override
 		public void onStartAsync(AsyncEvent event) throws IOException {
-			log.info("start:"+event.toString());
 			ServletResponse response=event.getAsyncContext().getResponse();
-			AbstractMessage message=MessageFactory.createDefaultMessage();
+			AbstractMessage message=new DefaultMessage<String>();
 			postMessage(response,message);
 		}
 
 		@Override
 		public void onTimeout(AsyncEvent event) throws IOException {
-			log.info("timeout:"+event.toString());
-			PublishServiceManager.removeService(ID);
+			PublishServiceManager.removeService(ID,event.getAsyncContext());
 		}
 		
-		private void  postMessage(ServletResponse response,AbstractMessage message){
-			PrintWriter writer;
-			try {
-				writer = response.getWriter();
+		private void  postMessage(ServletResponse response,AbstractMessage message) throws IOException{
+			PrintWriter writer = response.getWriter();
 				writer.print(message);
 				writer.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 		}
-
-		
-	    }
+	}
 
 }

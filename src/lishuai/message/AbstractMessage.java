@@ -1,6 +1,6 @@
 package lishuai.message;
 
-public abstract class AbstractMessage<T> {
+public abstract class AbstractMessage {
 	
 	protected String id;
 	
@@ -37,8 +37,6 @@ public abstract class AbstractMessage<T> {
 	public void setRetry(long retry) {
 		this.retry = retry;
 	}
-	
-	public abstract void setData(T data);
 	
 	@Override
 	public abstract String toString();

@@ -23,8 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div class="container">
      <div class="row">
-      <div id="resivemessage" class="col-*-*">
-      
+      <div class="col-*-*">
+         <ul id="resivemessage" class="list-group">
+           <li class="list-group-item">免费域名注册</li>
+         </ul>
       </div>      
     </div>
   </div>
@@ -53,7 +55,12 @@ $(function(){
  if(typeof(EventSource)!=="undefined"){
    var source=new EventSource("<%=basePath%>/message.ms?ID=123");
    source.addEventListener('update', function(e) {
-      console.log(e.data+"update");
+      console.log(e);
+      $('#resivemessage').append($("<li class=\"list-group-item\">"+e.data+"</li>"));
+   });
+  source.addEventListener('message', function(e) {
+      console.log(e);
+      $('#resivemessage').append($("<li class=\"list-group-item\">"+e.data+"</li>"));
    });
   }
  else{

@@ -10,27 +10,26 @@ import lishuai.message.AbstractMessage;
  * @author li
  *
  */
-public class UpdateMessage extends AbstractMessage<Map<String,String>> {
+public class UpdateMessage<T> extends AbstractMessage {
 	
-	private Map<String,String> updateData;
+	private T updateData;
 	
 	public UpdateMessage() {
 		super(Event.UPDATE);
 	}
 	
-	public Map<String, String> getUpdateData() {
+	public T getUpdateData() {
 		return updateData;
 	}
 
 	@Override
 	public String toString() {
-		return "event: "+event+"\ndata: "+data+"\nid:"+id+"\n\n";
+		return "event:"+event+"\ndata: "+data+"\nid:"+id+"\n\n";
 	}
 
-	@Override
-	public void setData(Map<String, String> data) {
+	public void setData(T data) {
 		this.updateData=data;
-		this.data=JSONUtil.toJSON(data);
+		this.data=JSONUtil.toJSON(data).replaceAll("\\n", "");
 	}
 
 }

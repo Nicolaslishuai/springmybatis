@@ -1,26 +1,28 @@
 package lishuai.message.entity;
 
+import lishuai.common.util.JSONUtil;
 import lishuai.message.AbstractMessage;
 /**
  * 默认的消息类型
  * @author li
+ * @param <T>
  *
  */
-public class DefaultMessage extends AbstractMessage<String> {
+public class DefaultMessage<T> extends AbstractMessage {
 	
-	private String defaultData;
+	private T defaultData;
 
 	public DefaultMessage() {
 		super(Event.MESSAGE);
 	}
-	@Override
-	public String toString() {
-		return "event: "+event+" \ndata:"+data+"\n\n";
+
+	public void setData(T data) {
+		this.defaultData=data;
+		this.data=JSONUtil.toJSON(data).replaceAll("\\n", "");
 	}
 	@Override
-	public void setData(String data) {
-		this.defaultData=data;
-		this.data=data;
+	public String toString() {
+		return "event:"+event+"\ndata:"+data+"\n\n";
 	}
 
 

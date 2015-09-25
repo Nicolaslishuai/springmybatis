@@ -9,10 +9,7 @@ import javax.annotation.Resource;
 import lishuai.base.dao.RuleDao;
 import lishuai.base.entity.UserEntity;
 import lishuai.common.util.StoreService;
-import lishuai.message.AbstractMessage;
-import lishuai.message.MessageFactory;
-import lishuai.message.AbstractMessage.Event;
-import lishuai.message.entity.UpdateMessage;
+import lishuai.message.entity.DefaultMessage;
 import lishuai.service.Userservice;
 
 import org.junit.After;
@@ -102,7 +99,7 @@ public class ServiceTest {
 	}
 	@Test
 	public void testMessage(){
-		AbstractMessage message=MessageFactory.createDefaultMessage();
+		DefaultMessage<String> message=new DefaultMessage<String>();
 		message.setData("Hello world");
 		System.out.println(message.toString()); 
 	}

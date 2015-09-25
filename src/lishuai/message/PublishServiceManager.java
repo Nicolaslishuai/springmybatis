@@ -30,11 +30,23 @@ public class PublishServiceManager {
 		return publishService.containsKey(ID);
 	}
 	
-	public synchronized static void addService(String id,AsyncContext asyncContext){
-		publishService.put(id, asyncContext);
+	public  static void addService(String id,AsyncContext asyncContext){
+		synchronized (publishService) {
+		 publishService.put(id, asyncContext);
+		}
+
 	}
-	public synchronized static void removeService(String ID){
-		publishService.remove(ID);
+	public  static void removeService(String ID){
+		 synchronized (publishService) {
+			publishService.remove(ID);
+		 }
+	}
+	public  static void removeService(String ID,AsyncContext asyncContext){
+		 synchronized (publishService) {
+			if(publishService.containsValue(asyncContext)){
+				publishService.remove(ID);
+			}
+		}
 	}
 	/**
 	 * 向所有定制的推送
@@ -46,7 +58,6 @@ public class PublishServiceManager {
 			AsyncContext ca=it.next().getValue();
 			ServletResponse response=ca.getResponse();
 			broadcast(response,message);
-			ca.complete();
 		}
 	}
 	/**
@@ -59,7 +70,6 @@ public class PublishServiceManager {
 			AsyncContext ca=publishService.get(ID);
 			ServletResponse response=ca.getResponse();
 			broadcast(response,message);
-			ca.complete();
 		}
 	}
 	

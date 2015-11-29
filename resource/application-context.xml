@@ -61,7 +61,7 @@
            <property name="configLocation" value="classpath:/spring/ehcache.xml"></property>
      </bean>
      <context:component-scan base-package="lishuai.common.util" />
-     
+     <context:component-scan base-package="lishuai.action" />
      
 	<!--创建事务管理器 -->
 	<bean id="transactionManager"
@@ -111,8 +111,8 @@
     <context:component-scan base-package="lishuai.security" />
     
     
-    <!-- <import resource="spring/security.xml"/>  -->
+    <import resource="spring/security.xml"/> 
     
-    <import resource="spring/example1_security.xml"/>
+    <!-- <import resource="spring/example1_security.xml"/> -->
 
 </beans>

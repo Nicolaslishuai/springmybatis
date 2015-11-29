@@ -58,10 +58,17 @@
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.action</url-pattern>
     </filter-mapping>
-	<filter-mapping>
-		<filter-name>struts2</filter-name>
+    
+    <servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 可以自定义servlet.xml配置文件的位置和名称，默认为WEB-INF目录下，名称为[<servlet-name>]-servlet.xml，如spring-servlet.xml -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
 		<url-pattern>*.htm</url-pattern>
-    </filter-mapping>
+	</servlet-mapping>
     
   <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>

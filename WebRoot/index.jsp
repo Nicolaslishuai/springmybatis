@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <form action="default/user_selectUserlist.do">
-     <input type="text" name="age" >
+     <input type="text" name="id" >
      <br>
      <button>SUBMIT</button>
     </form>

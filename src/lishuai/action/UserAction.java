@@ -1,6 +1,7 @@
 package lishuai.action;
 
 import lishuai.base.entity.UserEntity;
+import lishuai.common.db.MultipleDataSource;
 import lishuai.common.util.JSONUtil;
 import lishuai.service.Userservice;
 
@@ -28,6 +29,7 @@ public class UserAction implements ModelDriven<UserEntity> {
 	
 	public void selectUserlist(){
 		log.info("excute selectUserlist.......");
+		MultipleDataSource.setDataSourceKey("dataSourcemysqlB");
 		UserEntity user=userservice.findby(userEntity.getId());
 		JSONUtil.WriteJSON(user);
 	}

@@ -28,13 +28,13 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping("/select.htm")
-	public String selectUser(UserEntity user,int page,int pageSize) throws UnsupportedEncodingException{
+	public Page<UserEntity> selectUser(UserEntity user,int page,int pageSize) throws UnsupportedEncodingException{
 		Page<UserEntity> users=userservice.selectPage(user, page, pageSize);
 		//System.out.println(URLDecoder.decode(user.getUsername(), "GB2312"));
-		return JSONUtil.toJSON(users);
+		return users;
 	}
-	@RequestMapping(value="/put.htm")
 	@ResponseBody
+	@RequestMapping(value="/put.htm")
 	public String putUser(@RequestBody UserEntity user){
 		System.out.println(user.toString());
 		return "success";

@@ -1,25 +1,43 @@
 package lishuai.action;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import lishuai.base.entity.UserEntity;
 import lishuai.common.util.JSONUtil;
 import lishuai.service.Userservice;
 
+import org.apache.commons.codec.net.URLCodec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	
 	
 	@Autowired
 	private Userservice userservice;
 	
-	@RequestMapping("/selectUser.htm")
-	public void selectUser(String age){
-		System.out.println(age+".............");
-		UserEntity user=userservice.findby(age);
-		JSONUtil.WriteJSON(user);
+	@ResponseBody
+	@RequestMapping("/select.htm")
+	public String selectUser(UserEntity user,int page,int pageSize) throws UnsupportedEncodingException{
+		Page<UserEntity> users=userservice.selectPage(user, page, pageSize);
+		//System.out.println(URLDecoder.decode(user.getUsername(), "GB2312"));
+		return JSONUtil.toJSON(users);
+	}
+	@RequestMapping(value="/put.htm")
+	@ResponseBody
+	public String putUser(@RequestBody UserEntity user){
+		System.out.println(user.toString());
+		return "success";
 	}
 
 }

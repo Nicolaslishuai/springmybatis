@@ -52,7 +52,7 @@
 	</bean>	
 	
   <bean id="multipleDataSource" class="lishuai.common.db.MultipleDataSource">
-        <property name="defaultTargetDataSource" ref="dataSourcemysqlB"/>
+        <property name="defaultTargetDataSource" ref="dataSourcemysqlA"/>
         <property name="targetDataSources">
             <map>
                 <entry key="dataSourcemysqlA" value-ref="dataSourcemysqlA"/>
